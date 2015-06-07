@@ -1,0 +1,14 @@
+﻿{%extends "base.html"%}
+{% block title %}添加存款账户{% endblock %}
+{% block style %}th,td{padding:8px;}{% endblock %}
+
+{% block content %}
+	<h1>添加存款账户</h1>
+	<form action="" method="post" class="pure-form">{% csrf_token %}
+		<table>
+			{{form.as_table}}
+		</table>
+		<input type="submit" value="Create" class="pure-button" />
+		<input type="button" class="pure-button" onclick="MyCalendar.SetDate(this,document.getElementById('id_opening_date'))" value="Calender" />
+	</form>
+{% endblock %}

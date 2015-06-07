@@ -1,0 +1,136 @@
+{%extends "base.html"%}
+{% block title %}事务记录{% endblock %}
+{% block link %}
+<link type="text/css" href="/static/tag.css" rel="stylesheet"/>
+{%endblock%}
+
+{% block content %}
+	<h1>我的事务记录</h1>
+		<ul id="tabs">
+			<li><a href="#" name="#tab1">消费记录</a></li>
+			<li><a href="#" name="#tab2">进账记录</a></li>
+			<li><a href="#" name="#tab3">其他事务记录</a></li>
+		</ul>
+		<div id="content">
+			<div id="tab1">
+				{%if Assumption%}
+				<table class="pure-table pure-table-striped">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>地点</th>
+							<th>金额</th>
+							<th>条目</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rd in Assumption %}
+						<tr>
+							<td>{{rd.date|date:"Y-m-d"}}</td>
+							<td><a href="assum/update/{{rd.ID}}">{{rd.place}}</a></td>
+							<td>{{rd.amount}}</td>
+							<td>{{rd.items}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% ifequal Assumption.count 10 %}
+				<span id="more"><a href="assum/" target="_blank" class="pure-button">More>></a></span>
+				{%endifequal%}
+				{%else%}No Records!{%endif%}
+			</div>
+			<div id="tab2">
+				{%if Income%}
+				<table class="pure-table pure-table-striped">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>地点</th>
+							<th>金额</th>
+							<th>来源</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rd in Income %}
+						<tr>
+							<td>{{rd.date|date:"Y-m-d"}}</td>
+							<td><a href="income/update/{{rd.ID}}">{{rd.place}}</a></td>
+							<td>{{rd.amount}}</td>
+							<td>{{rd.source}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% ifequal Income.count 10 %}
+				<span id="more"><a href="income/" target="_blank" class="pure-button">More>></a></span>
+				{%endifequal%}
+				{%else%}No Records!{%endif%}
+			</div>
+			<div id="tab3">
+				{%if Other%}
+				<table class="pure-table pure-table-striped">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>地点</th>
+							<th>详细</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rd in Other %}
+						<tr>
+							<td>{{rd.date|date:"Y-m-d"}}</td>
+							<td><a href="other/update/{{rd.ID}}">{{rd.place}}</a></td>
+							<td>{{rd.details}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% ifequal Other.count 10 %}
+				<span id="more"><a href="other/" target="_blank" class="pure-button">More>></a></span>
+				{%endifequal%}
+				{%else%}No Records!{%endif%}
+			</div>
+		</div>
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+  <script>
+    function resetTabs(){
+        $("#content > div").hide(); //Hide all content
+        $("#tabs a").attr("id",""); //Reset id's
+    }
+
+    var myUrl = window.location.href; //get URL
+    var myUrlTab = myUrl.substring(myUrl.indexOf("#")); // For localhost/tabs.html#tab2, myUrlTab = #tab2
+    var myUrlTabName = myUrlTab.substring(0,4); // For the above example, myUrlTabName = #tab
+
+    (function(){
+        $("#content > div").hide(); // Initially hide all content
+        $("#tabs li:first a").attr("id","current"); // Activate first tab
+        $("#content > div:first").fadeIn(); // Show first tab content
+
+        $("#tabs a").on("click",function(e) {
+            e.preventDefault();
+            if ($(this).attr("id") == "current"){ //detection for current tab
+             return
+            }
+            else{
+            resetTabs();
+            $(this).attr("id","current"); // Activate this
+            $($(this).attr('name')).fadeIn(); // Show content for current tab
+            }
+        });
+
+        for (i = 1; i <= $("#tabs li").length; i++) {
+          if (myUrlTab == myUrlTabName + i) {
+              resetTabs();
+              $("a[name='"+myUrlTab+"']").attr("id","current"); // Activate url tab
+              $(myUrlTab).fadeIn(); // Show url tab content
+          }
+        }
+    })()
+  </script>
+	<!-- {%now "Y-m-d”%} -->
+
+{% endblock %}
+

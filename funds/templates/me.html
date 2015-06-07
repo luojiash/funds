@@ -1,0 +1,45 @@
+{%extends "base.html"%}
+{% block title %}个人信息{% endblock %}
+{% block style %}{% endblock %}
+
+{% block content %}
+	<h1>我的信息</h1>
+	{%if me%}
+	<table class="pure-table pure-table-horizontal">
+		<tr>
+			<label><th>用户名</th></label>
+			<td>{{me.user}}</td>
+		</tr>
+		<tr>
+			<label><th>真实姓名</th></label>
+			<td>{{me.realname}}</td>
+		</tr>
+		<tr>
+			<th>性别</th>
+			<td>{{me.sex}}</td>
+		</tr>
+		<tr>
+			<th>生日</th>
+			<td>{{me.birth|date:"Y-m-d"}}</td>
+		</tr>
+		<tr>
+			<th>现金额</th>
+			<td>￥{{me.cash}}</td>
+		</tr>
+		<tr>
+			<th><a href="/funds/record/">事务记录</a></th>
+			<td>{{me.record_set.count}}条记录</td>
+		</tr>
+		<tr>
+			<th><a href="/funds/account/">银行账户</a></th>
+			<td>{{me.deposit_set.count}}个存款账户<br/>{{me.loan_set.count}}个贷款账户</td>
+		</tr>
+
+	</table>
+	<p><a href="update/{{me.user_id}}" class="pure-button">更新个人信息</a></p>
+	<p><a href="/accounts/changepw" class="pure-button">修改密码</a></p>
+	{%else%}	<p>Something Wrong!</p>
+	{%endif%}
+
+{% endblock %}
+

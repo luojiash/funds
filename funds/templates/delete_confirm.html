@@ -1,0 +1,11 @@
+﻿{%extends "base.html"%}
+{% block title %}{% endblock %}
+{% block style %}p{font-size:18px;}.ul{position:relative;left:28px;}{% endblock %}
+
+{% block content %}
+<form action="" method="post" class="pure-form">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm" class="pure-button"/>
+</form>
+{% endblock %}
+

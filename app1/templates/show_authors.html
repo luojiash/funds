@@ -1,0 +1,8 @@
+{% for author in authors %}
+<fieldset>
+<li>{{author}}</li>
+{% for book in author.book_set.all %}
+{{book}}<br />
+{% endfor %}
+</fieldset>
+{% endfor %}

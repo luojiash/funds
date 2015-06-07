@@ -1,0 +1,56 @@
+{%extends "base.html"%}
+{% block title %}消费记录{% endblock %}
+{% block style %}{% endblock %}
+
+{% block content %}
+<h1>消费记录</h1>
+	<div>
+		<form action="" method="get" class="pure-form">
+			{{searchform.as_table}}
+			<input type="submit" value="GO" class="pure-button">
+			{%if y and not err%}<a href="/funds/record/assum/">All Records</a>{%endif%}
+		</form>
+	</div>
+{% if object_list %}
+	<table class="pure-table pure-table-striped">
+		<caption>{%if y and not err%}{{y}}年{{m}}月消费记录-合计{{sum}}元{%endif%}</caption>
+		<thead>
+			<tr>
+				<th>时间</th>
+				<th>地点</th>
+				<th>金额</th>
+				<th>条目</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for rd in object_list %}
+			<tr>
+				<td>{{rd.date|date:"Y-m-d"}}</td>
+				<td><a href="update/{{rd.ID}}">{{rd.place}}</a></td>
+				<td>{{rd.amount}}</td>
+				<td>{{rd.items}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% if is_paginated %}
+	<p><ul class="pure-paginator">
+		{% if page_obj.has_previous %}
+		<li><a class="pure-button prev" href="?{%if y%}y={{y}}&m={{m}}&{%endif%}page={{ page_obj.previous_page_number}}">&#171;</a></li>
+		{% endif %}
+		{% for page_number in page_obj.paginator.page_range %}
+			{% ifequal page_number page_obj.number %}
+				<li><a class="pure-button pure-button-active">{{ page_number }}</a></li>
+			{% else %}
+				<li><a class="pure-button" href="?{%if y%}y={{y}}&m={{m}}&{%endif%}page={{page_number}}">{{ page_number }}</a></li>
+			{% endifequal %}
+		{% endfor %}
+		{% if page_obj.has_next %}
+		<li><a class="pure-button next" href="?{%if y%}y={{y}}&m={{m}}&{%endif%}page={{page_obj.next_page_number}}">&#187;</a></li>
+		{% endif %}
+	</ul></p>
+	{% endif %}
+{% else %}
+	<p> No Records! </p>
+{%endif%}
+{% endblock %}

@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{% block title %}{% endblock %}
+{% block style %}th,td{padding:8px;}{% endblock %}
+
+{% block content %}
+	<h1>修改信息</h1>
+	<form action="" method="post" class="pure-form">{% csrf_token %}
+		<table>{{ form.as_table }}</table>
+		<input type="submit" value="Update" class="pure-button"/>
+	</form>
+	<!-- <p>user:{{me.sex}}</p> -->
+	<!-- <p>user:{{object.user.username}}</p> -->
+{% endblock %}
+

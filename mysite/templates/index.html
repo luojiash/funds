@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{% block title %}主页{% endblock %}
+{% block style %}p{font-size:18px;}.ul{position:relative;left:28px;}{% endblock %}
+
+{% block content %}
+	<h1>个人资金管理系统</h1>
+	<p>
+	本系统用于管理个人资金，主要功能有：
+	<div class="ul"><ul>
+		<li>个人信息的查询修改</li>
+		<li>现金消费、进账记录的添加、查询</li>
+		<li>银行账户的管理</li>
+	</ul></div>
+	</p>
+	<h2>更新</h2>
+	<p>
+	<div class="ul"><ul>
+		<li>增加导航栏用户名显示</li>
+		<li>增加修改密码功能</li>
+		<li>增加日历选择日期</li>
+	</ul></div>
+	</p>
+{% endblock %}

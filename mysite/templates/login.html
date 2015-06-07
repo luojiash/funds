@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+	<link type="text/css" href="/static/pure-customize.css" rel="stylesheet">
+    <style>
+		th,td{padding:18px;}
+        table,tr,th,td{margin:19px;font-size:20px}
+		.container{margin:0px auto;margin-top:130px;width:528px;height:326px;
+                background-color:Gainsboro;padding:18px;}
+		body{background-color:#f6f9fb;}
+		.pure-button{position:relative;left:126px}
+    </style>
+</head>
+<body>
+    <div class="container">
+		<div class='pure-g-r'><h1>个人资金管理系统</h1></div>
+        {{logout}}
+		<form class="pure-form" action="" method="post">
+			{%if error%}<span style="color:red;">用户名或密码错误</span>{%endif%}
+			<table>{{form.as_table}}</table>
+			<input class="pure-button" type="submit" value="登录">
+		</form>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
